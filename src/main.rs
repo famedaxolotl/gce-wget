@@ -29,7 +29,6 @@ fn main() {
 
             let sub_code = matches.get_one::<String>("subject_code").unwrap().clone();
 
-            // let mut types_vec: Vec<String> = Vec::new();
             let mut codes_vec: Vec<String> = Vec::new();
             let mut years_vec: Vec<String> = Vec::new();
 
