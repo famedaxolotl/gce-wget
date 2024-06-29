@@ -1,6 +1,6 @@
 use super::arg_parser::Args;
 
-pub fn parse(args: Args) -> Result<String, &'static str>{
+pub fn parse(args: &Args) -> Result<String, &'static str>{
     let Args {sub_code, types, codes, years} = args;
 
     let mut types_str: String = String::new();

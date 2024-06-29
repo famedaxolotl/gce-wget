@@ -12,3 +12,5 @@ repository = "https://github.com/famedaxolotl/gce-wget"
 
 [dependencies]
 clap = { version = "4.5.4", features = ["cargo"] }
+reqwest = { version = "0.12.5", features = ["blocking"] }
+

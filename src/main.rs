@@ -1,5 +1,6 @@
 mod arg_parser;
 mod parse_regex;
+mod get_url;
 use arg_parser::arg_parser;
 
 fn main() {
@@ -9,6 +10,8 @@ fn main() {
     println!("{:?}", args.codes);
     println!("{:?}", args.years);
 
-    let regex = parse_regex::parse(args).unwrap();
-    println!("{}", regex)
+    let regex = parse_regex::parse(&args).unwrap();
+    println!("{}", regex);
+    let url = get_url::get_url(&args.sub_code).unwrap();
+    println!("{}", url);
 }
