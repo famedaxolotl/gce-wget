@@ -1,10 +1,9 @@
-mod arg_parser;
-mod parse_regex;
-mod get_url;
-use arg_parser::arg_parser;
+#![allow(special_module_name)]
+mod lib;
+use lib::{arg_parser, get_url, parse_regex};
 
 fn main() {
-    let args = arg_parser().unwrap();
+    let args = arg_parser::arg_parser().unwrap();
     println!("{}", args.sub_code);
     println!("{:?}", args.types);
     println!("{:?}", args.codes);

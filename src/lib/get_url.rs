@@ -15,7 +15,7 @@ pub fn get_url(sub_code: &String) -> Result<String, &'static str>{
 fn fetch_name(sub_code: &String, exam_type: &String) -> String{
     let sub_name_raw: &str;
 
-    let mut potent_name: Vec<&str> = Vec::new();
+    let mut potential_names: Vec<&str> = Vec::new();
     
         // Fetch the HTML content
         let response = get(format!("https://papers.gceguide.net/{}", exam_type)).expect("Failed to fetch URL");
@@ -24,24 +24,27 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> String{
         // Split the content into individual lines
         let lines: Vec<&str> = body.lines().collect();
     
+        // Finds the big line with all subject list elements
         for line in lines {
             if line.contains(sub_code) {
+                // Splits the big line
                 let sub_lines: Vec<&str> = line.split(">").collect();
-
+                // Find the 2 lines with the given sub_code
                 for each_line in sub_lines{
                     if each_line.contains(sub_code){
                         // println!("{}", each_line);
-                        potent_name.push(each_line);
+                        potential_names.push(each_line);
                     }
                 }
             }
         }
-
-        sub_name_raw = &potent_name.get(1).unwrap();
+        // Takes the second of the output lines
+        sub_name_raw = &potential_names.get(1).expect("No subject found with given subject code");
         let sub_name_final: String = sub_name_raw
         .replace(" ", "%20")
         .replace("(", "%28")
         .replace(")", "%29");
 
+        // Removes residual HTML tag text
         sub_name_final[..sub_name_final.len() - 3].to_string()
 }
