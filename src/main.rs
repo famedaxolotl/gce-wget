@@ -1,4 +1,5 @@
-pub mod arg_parser;
+mod arg_parser;
+mod parse_regex;
 use arg_parser::arg_parser;
 
 fn main() {
@@ -7,4 +8,7 @@ fn main() {
     println!("{:?}", args.types);
     println!("{:?}", args.codes);
     println!("{:?}", args.years);
+
+    let regex = parse_regex::parse(args).unwrap();
+    println!("{}", regex)
 }

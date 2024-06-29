@@ -16,7 +16,7 @@ impl Args{
 pub fn arg_parser() -> Result<Args, &'static str>{
 
     let matches = command!()
-    .about("Wget CLI tool to retrieve papers from papers.gceguide.com")
+    .about("Wget CLI tool to retrieve papers from papers.gceguide.net")
     .arg(
         Arg::new("subject_code")
         .help("Accepts ONE subject code, accepts IGCSE, AS/A Levels and O Levels")

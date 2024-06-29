@@ -1,6 +1,6 @@
 # This is a work in progress
 
-## Wget CLI to get past papers from papers.gceguide.com
+## Wget CLI to get past papers from papers.gceguide.net
 
 ### Intended command structure:
 ```bash
@@ -9,8 +9,8 @@
 Use `--help` to see more details.
 
 ### To-do (roadmap):
-- ~~ Extract argument parser logic~~ (maybe better error handling needed?)
-- Create function which formats the regex
+- ~~Extract argument parser logic~~ (maybe better error handling needed?)
+- ~~Create function which formats the regex~~
 - Pass the regex onto wget
 - Find a solution to allow wget to accept multiple urls
 
