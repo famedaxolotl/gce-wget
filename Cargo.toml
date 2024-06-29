@@ -1,7 +1,13 @@
 [package]
 name = "gce-wget"
 version = "0.1.0"
+authors = ["Axolotl"]
 edition = "2021"
+description = "Cli tool using wget to get CAIE Past Papers; written in Rust"
+license = "MIT"
+license-file = "LICENSE"
+readme="README.md"
+repository = "https://github.com/famedaxolotl/gce-wget"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

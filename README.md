@@ -9,8 +9,8 @@
 Use `--help` to see more details.
 
 ### To-do (roadmap):
-- Extract argument parser logic
+- ~~ Extract argument parser logic~~ (maybe better error handling needed?)
 - Create function which formats the regex
-- Run pass the regex onto wget
+- Pass the regex onto wget
 - Find a solution to allow wget to accept multiple urls
 
