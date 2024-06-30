@@ -19,7 +19,7 @@ pub fn arg_parser() -> Result<Args, &'static str>{
     .about("Wget CLI tool to retrieve papers from papers.gceguide.net")
     .arg(
         Arg::new("subject_code")
-        .help("Accepts ONE subject code, accepts IGCSE, AS/A Levels and O Levels")
+        .help("Accepts ONE subject code, accepts IGCSE and AS/A Levels")
         .required(true)
     )
     .arg(

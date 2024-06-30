@@ -20,11 +20,11 @@ pub fn parse(args: &Args) -> Result<String, &'static str>{
     types_str.pop();
     codes_str.pop();
 
-    if codes.len() == 0 && types.len() == 0{
+    if codes.is_empty() && types.is_empty(){
         Ok(format!("{}_.{{3}}", sub_code))
-    }else if codes.len() == 0{
+    }else if codes.is_empty(){
         Ok(format!("{}_.{{3}}_({})", sub_code, types_str))
-    }else if types.len() ==0{
+    }else if types.is_empty(){
         Ok(format!("{}_.{{3}}_.{{2}}_({})", sub_code, codes_str))
     }else{
 

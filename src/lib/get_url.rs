@@ -13,8 +13,6 @@ pub fn get_url(sub_code: &String) -> Result<String, &'static str>{
 }
 
 fn fetch_name(sub_code: &String, exam_type: &String) -> String{
-    let sub_name_raw: &str;
-
     let mut potential_names: Vec<&str> = Vec::new();
     
         // Fetch the HTML content
@@ -28,7 +26,7 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> String{
         for line in lines {
             if line.contains(sub_code) {
                 // Splits the big line
-                let sub_lines: Vec<&str> = line.split(">").collect();
+                let sub_lines: Vec<&str> = line.split('>').collect();
                 // Find the 2 lines with the given sub_code
                 for each_line in sub_lines{
                     if each_line.contains(sub_code){
@@ -39,11 +37,11 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> String{
             }
         }
         // Takes the second of the output lines
-        sub_name_raw = &potential_names.get(1).expect("No subject found with given subject code");
+    let sub_name_raw: &str = potential_names.get(1).expect("No subject found with given subject code");
         let sub_name_final: String = sub_name_raw
-        .replace(" ", "%20")
-        .replace("(", "%28")
-        .replace(")", "%29");
+        .replace(' ', "%20")
+        .replace('(', "%28")
+        .replace(')', "%29");
 
         // Removes residual HTML tag text
         sub_name_final[..sub_name_final.len() - 3].to_string()

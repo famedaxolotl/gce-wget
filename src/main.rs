@@ -21,7 +21,7 @@ fn main() {
     println!("Please check your downloads folder!");
 }
 
-fn runner(regex: &String, url: &String, years: &Vec<String> )-> Result<(), &'static str>{
+fn runner(regex: &str, url: &str, years: &[String] )-> Result<(), &'static str>{
 
     let target_year = years.first().unwrap();
 
@@ -33,11 +33,11 @@ fn runner(regex: &String, url: &String, years: &Vec<String> )-> Result<(), &'sta
         .arg("-r")
         .arg("-l2")
         .args(["-A", ".pdf"])
-        .args(["--accept-regex", regex.as_str()])
+        .args(["--accept-regex", regex])
         .arg("-nc")
         .args(["-e", "robots=off"])
         .args(["-P", usr_downloads_dir.as_str()])
-        .arg(format!("{}{}", url.as_str(), target_year.as_str()))
+        .arg(format!("{}{}", url, target_year.as_str()))
         .output()
         .expect("Wget execution failed");
 

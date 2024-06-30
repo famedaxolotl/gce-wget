@@ -1,14 +1,14 @@
 [package]
 name = "gce-wget"
-version = "0.1.0"
-authors = ["Axolotl"]
+version = "1.0.0"
+authors = ["Axolotl rishavghosh2007@gmail.com"]
 edition = "2021"
 description = "CLI tool using wget to get CAIE Past Papers; written in Rust"
 license = "MIT"
 readme="README.md"
 repository = "https://github.com/famedaxolotl/gce-wget"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+keywords = ["wget", "cli", "caie", "igcse", "past-papers"]
+categories = ["cli", "academic", "bulk-download"]
 
 [dependencies]
 clap = { version = "4.5.4", features = ["cargo"] }
