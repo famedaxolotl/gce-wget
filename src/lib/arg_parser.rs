@@ -95,7 +95,5 @@ pub fn arg_parser() -> Result<Args, &'static str>{
         }
     }
 
-    println!("Please check your downloads folder!");
-
     Ok(Args::new(sub_code, types_vec, codes_vec, years_vec))
 }

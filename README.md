@@ -7,7 +7,7 @@ gce-wget is a specialized tool to bulk download IGCSE and AS/A Levels (O Levels 
 Use any of the following methods.
 
 ### 1. Downloading binary
-- You can download the binary from the releases page
+- You can download the binary from the [releases page](https://github.com/famedaxolotl/gce-wget/releases)
 - Extract the binary and move it to `/usr/bin` with
 ```bash
 mv /Downloads/gce-wget /usr/bin
@@ -53,4 +53,11 @@ gce-wget 0620 -t ms,qp -c 21,41 2023
 ```
 This downloads all Variant 1 extended MCQ and Theory papers of IGCSE Chemistry 2023.
 
-To understand the paper naming system, see this.
+To understand the paper naming system, [see this](https://papers.gceguide.net/assets/images/res_guide.svg).
+
+### Porblems remaining
+
+- The error handling is absolutely horrendous right now
+- only one year is accepted
+- performance improvements in the url creator
+- maybe adopt a better module system
