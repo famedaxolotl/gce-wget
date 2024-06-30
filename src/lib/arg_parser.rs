@@ -76,7 +76,7 @@ pub fn arg_parser() -> Result<Args, &'static str>{
     if let Some(values) = matches.get_many::<String>("paper-codes") {
         for value in values {
 
-            if value.len() == 2 && value.parse::<i32>().is_ok(){
+            if (value.len() == 2 || value.len() == 1) && value.parse::<i32>().is_ok(){
                 codes_vec.push(value.clone())
             }else{
                 return Err("Enter valid 2-digit paper codes")
@@ -94,6 +94,8 @@ pub fn arg_parser() -> Result<Args, &'static str>{
             }
         }
     }
+
+    println!("Please check your downloads folder!");
 
     Ok(Args::new(sub_code, types_vec, codes_vec, years_vec))
 }
