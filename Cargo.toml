@@ -8,7 +8,6 @@ license = "MIT"
 readme="README.md"
 repository = "https://github.com/famedaxolotl/gce-wget"
 keywords = ["wget", "cli", "caie", "igcse", "past-papers"]
-categories = ["cli", "academic", "bulk-download"]
 
 [dependencies]
 clap = { version = "4.5.4", features = ["cargo"] }
