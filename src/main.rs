@@ -1,6 +1,6 @@
 #![allow(special_module_name)]
 mod lib;
-use lib::{arg_parser, get_url, parse_regex};
+use lib::{arg_parser, get_url, parse_regex, create_link_file};
 use std::process::Command;
 use std::env;
 
@@ -16,14 +16,19 @@ fn main() {
     let url = get_url::get_url(&args.sub_code).unwrap();
     // println!("{}", url);
 
-    runner(&regex, &url, &args.years).expect("Something went wrong");
+    let link_file = create_link_file::create_link_file(&url, &args.years);
+
+    if link_file.is_ok(){
+    runner(&regex).expect("Something went wrong");
+    }
 
     println!("Please check your downloads folder!");
+
 }
 
-fn runner(regex: &str, url: &str, years: &[String] )-> Result<(), &'static str>{
+fn runner(regex: &str)-> Result<(), &'static str>{
 
-    let target_year = years.first().unwrap();
+    // let target_year = years.first().unwrap();
 
     let usr_downloads_dir = format!("{}/Downloads", env::var("HOME").expect("Home env var not found"));
 
@@ -37,7 +42,8 @@ fn runner(regex: &str, url: &str, years: &[String] )-> Result<(), &'static str>{
         .arg("-nc")
         .args(["-e", "robots=off"])
         .args(["-P", usr_downloads_dir.as_str()])
-        .arg(format!("{}{}", url, target_year.as_str()))
+        // .arg(format!("{}{}", url, target_year.as_str()))
+        .args(["-i", format!("{}/.temp-link-file", usr_downloads_dir).as_str()])
         .output()
         .expect("Wget execution failed");
 
@@ -48,6 +54,8 @@ fn runner(regex: &str, url: &str, years: &[String] )-> Result<(), &'static str>{
         if !output.stderr.is_empty() {
             eprintln!("{}", String::from_utf8_lossy(&output.stderr));
         };
+
+        std::fs::remove_file(format!("{}/.temp-link-file", usr_downloads_dir)).expect("Couldn't delete link file");
 
         Ok(())
     
