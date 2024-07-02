@@ -3,6 +3,7 @@ mod lib;
 use lib::{arg_parser, get_url, parse_regex, create_link_file};
 use std::process::Command;
 use std::env;
+// use std::process;
 
 fn main() {
     let args = arg_parser::arg_parser().unwrap();
@@ -16,17 +17,20 @@ fn main() {
     let url = get_url::get_url(&args.sub_code).unwrap();
     // println!("{}", url);
 
-    let link_file = create_link_file::create_link_file(&url, &args.years);
+    let link_file = match create_link_file::create_link_file(&url, &args.years){
+        Ok(val) => val,
+        Err(e) => e.to_string()
+    };
 
-    if link_file.is_ok(){
-    runner(&regex).expect("Something went wrong");
-    }
+
+
+    runner(&regex, &link_file).expect("Something went wrong");
 
     println!("Please check your downloads folder!");
 
 }
 
-fn runner(regex: &str)-> Result<(), &'static str>{
+fn runner(regex: &str, link_file: &String)-> Result<(), &'static str>{
 
     // let target_year = years.first().unwrap();
 
@@ -43,7 +47,7 @@ fn runner(regex: &str)-> Result<(), &'static str>{
         .args(["-e", "robots=off"])
         .args(["-P", usr_downloads_dir.as_str()])
         // .arg(format!("{}{}", url, target_year.as_str()))
-        .args(["-i", format!("{}/.temp-link-file", usr_downloads_dir).as_str()])
+        .args(["-i", link_file])
         .output()
         .expect("Wget execution failed");
 
