@@ -46,7 +46,7 @@ fn main() {
 fn runner(regex: &str, link_file: &String)-> io::Result<()>{
 
     // unwrap call, followed by tuple index access is verified safe
-    let usr_downloads_dir = link_file.rsplit_once("/").unwrap().0;
+    let usr_downloads_dir = link_file.rsplit_once('/').unwrap().0;
 
     println!("Please wait, wget is running...");
 
