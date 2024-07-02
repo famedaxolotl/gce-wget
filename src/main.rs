@@ -3,7 +3,6 @@ mod lib;
 use lib::{arg_parser, get_url, parse_regex, create_link_file};
 use std::process::Command;
 use std::env;
-// use std::process;
 
 fn main() {
     let args = arg_parser::arg_parser().unwrap();
@@ -32,8 +31,6 @@ fn main() {
 
 fn runner(regex: &str, link_file: &String)-> Result<(), &'static str>{
 
-    // let target_year = years.first().unwrap();
-
     let usr_downloads_dir = format!("{}/Downloads", env::var("HOME").expect("Home env var not found"));
 
     println!("Please wait, wget is running...");
@@ -46,7 +43,6 @@ fn runner(regex: &str, link_file: &String)-> Result<(), &'static str>{
         .arg("-nc")
         .args(["-e", "robots=off"])
         .args(["-P", usr_downloads_dir.as_str()])
-        // .arg(format!("{}{}", url, target_year.as_str()))
         .args(["-i", link_file])
         .output()
         .expect("Wget execution failed");

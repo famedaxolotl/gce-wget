@@ -48,12 +48,10 @@ Now, run with `cargo run` or move the binary to `/usr/bin` with:
 
 Use `gce-wget --help` to see detailed help page.
 
-***NOTE: Only 1 year at a time for now***
-
 The basic command  structure (no options) is:
 
 ```bash
-gce-wget [SUBJECT_CODE] [YEAR]
+gce-wget [SUBJECT_CODE] [YEARS]
 ```
 
 For example, `gce-wget 0620 2022` will download all papers of IGCSE Chemistry from 2022
@@ -63,17 +61,16 @@ To selectively download papers, use the `-t` (`--types`) and `-c` (`--codes`) op
 For example:
 
 ```bash
-gce-wget 0620 -t ms,qp -c 21,41 2022
+gce-wget 0620 -t ms,qp -c 21,41 2022,2023
 ```
 
-This downloads all Variant 1 extended MCQ and Theory papers of IGCSE Chemistry 2022.
+This downloads all Variant 1 extended MCQ and Theory papers of IGCSE Chemistry years 2022 and 2023.
 
 To understand the paper naming system, [see this.](https://papers.gceguide.net/assets/images/res_guide.svg).
 
 ### Problems remaining
 
 - The error handling is absolutely horrendous right now
-- only one year is accepted
 - performance improvements in the url creator
 - maybe adopt a better module system
 - O Levels not accepted
