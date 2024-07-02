@@ -1,23 +1,31 @@
 use reqwest::blocking::get;
 
 pub fn get_url(sub_code: &String) -> Result<String, &'static str>{
+    // unwrap call here sufficient because arg_parser ensures Some
     let exam_type: String = if sub_code.get(0..1).unwrap() == "0"{
         String::from("Cambridge%20IGCSE")
     }else{
         String::from("A%20Levels")
     };
-    let url_name_string = fetch_name(sub_code, &exam_type);
+    let url_name_string = fetch_name(sub_code, &exam_type)?;
     
 
     Ok(format!("https://papers.gceguide.net/{}/{}/", exam_type, url_name_string))
 }
 
-fn fetch_name(sub_code: &String, exam_type: &String) -> String{
+fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, &'static str>{
     let mut potential_names: Vec<&str> = Vec::new();
     
         // Fetch the HTML content
-        let response = get(format!("https://papers.gceguide.net/{}", exam_type)).expect("Failed to fetch URL");
-        let body = response.text().expect("Failed to read response body");
+        let response = match get(format!("https://papers.gceguide.net/{}", exam_type)){
+            Ok(res) => res,
+            Err(_) => return Err("failed to get necessary info from papers.gceguide.net")
+        };
+
+        let body = match response.text(){
+            Ok(bod) => bod,
+            Err(_) => return Err("failed to read info from papers.gce-guide.net")
+        };
     
         // Split the content into individual lines
         let lines: Vec<&str> = body.lines().collect();
@@ -37,12 +45,15 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> String{
             }
         }
         // Takes the second of the output lines
-    let sub_name_raw: &str = potential_names.get(1).expect("No subject found with given subject code");
+        let sub_name_raw: &str = match potential_names.get(1){
+            Some(sub_name) => sub_name,
+            None => return Err("the entered subject couldn't be found on papers.gceguide.net")
+        };
         let sub_name_final: String = sub_name_raw
         .replace(' ', "%20")
         .replace('(', "%28")
         .replace(')', "%29");
 
         // Removes residual HTML tag text
-        sub_name_final[..sub_name_final.len() - 3].to_string()
+        Ok(sub_name_final[..sub_name_final.len() - 3].to_string())
 }

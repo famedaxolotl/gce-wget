@@ -1,6 +1,8 @@
 use super::arg_parser::Args;
 
-pub fn parse(args: &Args) -> Result<String, &'static str>{
+// upon further consideration this function
+// has no need to return Result<T, E>
+pub fn parse(args: &Args) -> String{
     let Args {sub_code, types, codes, years: _years} = args;
 
     let mut types_str: String = String::new();
@@ -21,13 +23,13 @@ pub fn parse(args: &Args) -> Result<String, &'static str>{
     codes_str.pop();
 
     if codes.is_empty() && types.is_empty(){
-        Ok(format!("{}_.{{3}}", sub_code))
+        format!("{}_.{{3}}", sub_code)
     }else if codes.is_empty(){
-        Ok(format!("{}_.{{3}}_({})", sub_code, types_str))
+        format!("{}_.{{3}}_({})", sub_code, types_str)
     }else if types.is_empty(){
-        Ok(format!("{}_.{{3}}_.{{2}}_({})", sub_code, codes_str))
+        format!("{}_.{{3}}_.{{2}}_({})", sub_code, codes_str)
     }else{
 
-        Ok(format!("{}_.{{3}}_({})_({})", sub_code, types_str, codes_str))
+        format!("{}_.{{3}}_({})_({})", sub_code, types_str, codes_str)
     }
 }

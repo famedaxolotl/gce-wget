@@ -1,8 +1,13 @@
 # gce-wget
 
-![crates.io](https://img.shields.io/crates/v/gce-wget.svg) ![docs.rs](https://docs.rs/gce-wget/badge.svg)![Total Downloads](https://img.shields.io/crates/d/gce-wget.svg)
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/famedaxolotl) [![crates.io](https://img.shields.io/crates/v/gce-wget.svg)](https://crates.io/crates/gce-wget) [![Total Downloads](https://img.shields.io/crates/d/gce-wget.svg)](https://crates.io/crates/gce-wget) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-gce-wget is a specialized tool to bulk download IGCSE and AS/A Levels (O Levels not yet supported) papers from papers.gceguide.net, skipping the need to write regexes and make link files. This tool requires wget to be pre-installed on the machine (alternatives such as cURL are being considered).
+## v1.0.1 What's new
+
+- **Multi-year support added! Enjoy downloading multiple years (see usage below)**
+- **Error handling improved; user-friendly error messages**
+
+gce-wget is a specialized tool to bulk download IGCSE and AS/A Levels (O Levels not yet supported) papers from papers.gceguide.net, skipping the need to write regexes and make link files. This tool requires wget to be pre-installed on the machine.
 
 ## Installation
 
@@ -54,7 +59,7 @@ The basic command  structure (no options) is:
 gce-wget [SUBJECT_CODE] [YEARS]
 ```
 
-For example, `gce-wget 0620 2022` will download all papers of IGCSE Chemistry from 2022
+For example, `gce-wget 0620 2021,2022` will download all papers of IGCSE Chemistry from 2021 and IGCSE Chemistry 2022
 
 To selectively download papers, use the `-t` (`--types`) and `-c` (`--codes`) options, which allow you to enter comma-seperated lists of paper types and codes.
 
@@ -70,7 +75,6 @@ To understand the paper naming system, [see this.](https://papers.gceguide.net/a
 
 ### Problems remaining
 
-- The error handling is absolutely horrendous right now
 - performance improvements in the url creator
 - maybe adopt a better module system
 - O Levels not accepted
