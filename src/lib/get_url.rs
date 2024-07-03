@@ -3,22 +3,21 @@ use super::arg_parser::Qual;
 
 pub fn get_url(sub_code: &String, force_flag: &Qual) -> Result<String, &'static str>{
 
-    let exam_type: String;
-    match force_flag{
+    let exam_type: String = match force_flag{
         // forced qualification logic
-        Qual::Alevel => exam_type = String::from("A%20Levels"),
-        Qual::IGCSE => exam_type = String::from("Cambridge%20IGCSE"),
-        Qual::OLevel => exam_type = String::from("O%20Levels"),
+        Qual::Alevel => String::from("A%20Levels"),
+        Qual::Igcse => String::from("Cambridge%20IGCSE"),
+        Qual::OLevel => String::from("O%20Levels"),
         Qual::None => {
             // unwrap call here sufficient because arg_parser ensures Some
             // automatic qualification logic (no o-level)
-            exam_type = if sub_code.get(0..1).unwrap() == "0"{
+            if sub_code.get(0..1).unwrap() == "0"{
                 String::from("Cambridge%20IGCSE")
             }else{
                 String::from("A%20Levels")
-            };
+            }
         }
-    }
+    };
 
     let url_name_string = fetch_name(sub_code, &exam_type)?;    
 

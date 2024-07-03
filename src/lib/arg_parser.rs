@@ -8,7 +8,7 @@ pub struct Config{
     pub force_flag: Qual,
 }
 pub enum Qual{
-    IGCSE,
+    Igcse,
     OLevel,
     Alevel,
     None
@@ -68,7 +68,7 @@ impl Config{
                 
             )
             .group(ArgGroup::new("force-qualification")
-            .args(&["igcse", "o-level", "a-level"])
+            .args(["igcse", "o-level", "a-level"])
             .required(false)).get_matches();
         
             // Getting matches and inserting them into vecs
@@ -125,7 +125,7 @@ impl Config{
             let force_flag: Qual;
 
             if matches.get_flag("igcse") {
-                force_flag = Qual::IGCSE;
+                force_flag = Qual::Igcse;
             }else if matches.get_flag("a-level") {
                 force_flag = Qual::Alevel;
             }else if matches.get_flag("o-level") {

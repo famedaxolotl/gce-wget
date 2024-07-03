@@ -6,7 +6,7 @@
 
 ### Force qualaification flags: O Levels support added
 
-You can now optionally force the program to search a particular qualification using the `-i`, `-a`, `-o` options, for IGCSE, A Levels, and O Levels respectively. Automatic search still remains if these options are not given, but only for IGCSE and A Levels. See details in Usage below.
+- ***You can now optionally force the program to search a particular qualification using the `-i`, `-a`, `-o` options, for IGCSE, A Levels, and O Levels respectively. Automatic search still remains if these options are not given, but only for IGCSE and A Levels. See details in Usage below.***
 
 gce-wget is a specialized tool to bulk download IGCSE and AS/A Levels (O Levels not yet supported) papers from papers.gceguide.net, skipping the need to write regexes and make link files. This tool requires wget to be pre-installed on the machine.
 
