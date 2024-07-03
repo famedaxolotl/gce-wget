@@ -1,9 +1,9 @@
-use super::arg_parser::Args;
+use super::arg_parser::Config;
 
 // upon further consideration this function
 // has no need to return Result<T, E>
-pub fn parse(args: &Args) -> String{
-    let Args {sub_code, types, codes, years: _years} = args;
+pub fn parse(config: &Config) -> String{
+    let Config {sub_code, types, codes, years: _years} = config;
 
     let mut types_str: String = String::new();
     let mut codes_str: String = String::new();

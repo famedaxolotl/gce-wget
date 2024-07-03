@@ -1,28 +1,28 @@
 #![allow(special_module_name)]
 mod lib;
-use lib::{arg_parser, get_url, parse_regex, create_link_file};
+use lib::{arg_parser::Config, get_url, parse_regex, create_link_file};
 use std::process::{self, Command};
 use std::io;
 
 fn main() {
-    let args =arg_parser::arg_parser().unwrap_or_else(|error| {
+    let config = Config::new().unwrap_or_else(|error| {
         eprintln!("Invalid arguement provided: {}", error);
         process::exit(1);
     });
     
-    println!("Downloading the following subject: {}", args.sub_code);
-    println!("Of the following types: {:?}", args.types);
-    println!("The following paper codes: {:?}", args.codes);
-    println!("From the following years: {:?}", args.years);
+    println!("Downloading the following subject: {}", config.sub_code);
+    println!("Of the following types: {:?}", config.types);
+    println!("The following paper codes: {:?}", config.codes);
+    println!("From the following years: {:?}", config.years);
 
-    let regex = parse_regex::parse(&args);
+    let regex = parse_regex::parse(&config);
 
-    let url = get_url::get_url(&args.sub_code).unwrap_or_else(|error| {
+    let url = get_url::get_url(&config.sub_code).unwrap_or_else(|error| {
         eprintln!("Error: {}", error);
         process::exit(1);
     });
 
-    let link_file = create_link_file::create_link_file(&url, &args.years).unwrap_or_else(|error| {
+    let link_file = create_link_file::create_link_file(&url, &config.years).unwrap_or_else(|error| {
         eprintln!("Error creating link-file: {}", error);
         process::exit(1);
 
