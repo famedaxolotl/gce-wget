@@ -1,4 +1,4 @@
-use super::arg_parser::{Config, Qual};
+use super::arg_parser::Config;
 
 // upon further consideration this function
 // has no need to return Result<T, E>

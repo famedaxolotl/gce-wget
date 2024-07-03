@@ -14,7 +14,7 @@ fn main() {
     println!("Of the following types: {:?}", config.types);
     println!("The following paper codes: {:?}", config.codes);
     println!("From the following years: {:?}", config.years);
-    println!("From the following years: {:?}", config.force_flag);
+    println!("Qualification: {:?}", config.force_flag);
 
     let regex = parse_regex::parse(&config);
 
