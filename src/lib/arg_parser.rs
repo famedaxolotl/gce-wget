@@ -1,10 +1,18 @@
-use clap::{command, Arg};
+use clap::{command, Arg, ArgAction, ArgGroup};
 
 pub struct Config{
     pub sub_code: String,
     pub types: Vec<String>,
     pub codes: Vec<String>,
     pub years: Vec<String>,
+    pub force_flag: Qual,
+}
+#[derive(Debug)]
+pub enum Qual{
+    IGCSE,
+    OLevel,
+    Alevel,
+    None
 }
 
 impl Config{
@@ -12,6 +20,7 @@ impl Config{
 
             let matches = command!()
             .about("Wget CLI tool to retrieve papers from papers.gceguide.net")
+            .version("1.0.2")
             .arg(
                 Arg::new("subject_code")
                 .help("Accepts ONE subject code, accepts IGCSE and AS/A Levels")
@@ -36,7 +45,32 @@ impl Config{
                 .help("Comma delimited list of paper years; must specifiy at least one.")
                 .value_delimiter(',')
                 .required(true)
-            ).get_matches();
+            )
+            .arg(
+                Arg::new("igcse")
+                .help("Force IGCSE search")
+                .short('i')
+                .long("igcse")
+                .action(ArgAction::SetTrue)
+            )
+            .arg(
+                Arg::new("a-level")
+                .help("Force A Levels search")
+                .short('a')
+                .long("a-level")
+                .action(ArgAction::SetTrue)
+            )
+            .arg(
+                Arg::new("o-level")
+                .help("Force O Levels search")
+                .short('o')
+                .long("o-level")
+                .action(ArgAction::SetTrue)
+                
+            )
+            .group(ArgGroup::new("force-qualification")
+            .args(&["igcse", "o-level", "a-level"])
+            .required(false)).get_matches();
         
             // Getting matches and inserting them into vecs
         
@@ -52,12 +86,11 @@ impl Config{
         
             let mut codes_vec: Vec<String> = Vec::new();
             let mut years_vec: Vec<String> = Vec::new();
-        
             let mut types_vec: Vec<String> = Vec::new();
         
             if let Some(values) = matches.get_many::<String>("paper-types") {
                 for value in values {
-                    let types_list: [&str; 6] = ["qp", "ms", "in", "er", "gt", "tr"];
+                    let types_list = ["qp", "ms", "in", "er", "gt", "tr", "ci"];
         
                     if !types_list.contains(&value.as_str()){
                         return Err("You have passed an invalid paper type");
@@ -89,13 +122,25 @@ impl Config{
                     }
                 }
             }
+
+            let force_flag: Qual;
+
+            if matches.get_flag("igcse") {
+                force_flag = Qual::IGCSE;
+            }else if matches.get_flag("a-level") {
+                force_flag = Qual::Alevel;
+            }else if matches.get_flag("o-level") {
+                force_flag = Qual::OLevel;
+            }else{
+                force_flag = Qual::None;
+            }
         
             Ok(Config{
                 sub_code,
                 types: types_vec,
                 codes: codes_vec,
-                years: years_vec
+                years: years_vec,
+                force_flag
             })
         }
     }
-

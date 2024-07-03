@@ -14,10 +14,11 @@ fn main() {
     println!("Of the following types: {:?}", config.types);
     println!("The following paper codes: {:?}", config.codes);
     println!("From the following years: {:?}", config.years);
+    println!("From the following years: {:?}", config.force_flag);
 
     let regex = parse_regex::parse(&config);
 
-    let url = get_url::get_url(&config.sub_code).unwrap_or_else(|error| {
+    let url = get_url::get_url(&config.sub_code, &config.force_flag).unwrap_or_else(|error| {
         eprintln!("Error: {}", error);
         process::exit(1);
     });
