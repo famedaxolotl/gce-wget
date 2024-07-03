@@ -14,7 +14,6 @@ fn main() {
     println!("Of the following types: {:?}", config.types);
     println!("The following paper codes: {:?}", config.codes);
     println!("From the following years: {:?}", config.years);
-    println!("Qualification: {:?}", config.force_flag);
 
     let regex = parse_regex::parse(&config);
 
@@ -62,7 +61,6 @@ fn runner(regex: &str, link_file: &String)-> io::Result<()>{
         .args(["-i", link_file])
         .output()?;
 
-
         if !output.stdout.is_empty() {
             println!("{}", String::from_utf8_lossy(&output.stdout));
         };
@@ -70,8 +68,6 @@ fn runner(regex: &str, link_file: &String)-> io::Result<()>{
             eprintln!("{}", String::from_utf8_lossy(&output.stderr));
         };
 
-
         Ok(())
-    
 }
 

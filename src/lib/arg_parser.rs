@@ -7,7 +7,6 @@ pub struct Config{
     pub years: Vec<String>,
     pub force_flag: Qual,
 }
-#[derive(Debug)]
 pub enum Qual{
     IGCSE,
     OLevel,
