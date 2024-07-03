@@ -4,7 +4,7 @@
 
 ## v1.0.2 What's new
 
-### Force qualaification flags: O Levels support added
+### Force qualification flags: O Levels support added
 
 - ***You can now optionally force the program to search a particular qualification using the `-i`, `-a`, `-o` options, for IGCSE, A Levels, and O Levels respectively. Automatic search still remains if these options are not given, but only for IGCSE and A Levels. See details in Usage below.***
 
