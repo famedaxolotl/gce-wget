@@ -1,6 +1,5 @@
-#![allow(special_module_name)]
-mod lib;
-use lib::{arg_parser::Config, get_url, parse_regex, create_link_file};
+mod utils;
+use utils::{arg_parser::Config, get_url, parse_regex, create_link_file};
 use std::process::{self, Command};
 use std::io;
 

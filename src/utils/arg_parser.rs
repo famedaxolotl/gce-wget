@@ -88,7 +88,7 @@ impl Config{
             let mut types_vec: Vec<String> = Vec::new();
         
             if let Some(values) = matches.get_many::<String>("paper-types") {
-                for value in values {
+                for value in values{
                     let types_list = ["qp", "ms", "in", "er", "gt", "tr", "ci"];
         
                     if !types_list.contains(&value.as_str()){
