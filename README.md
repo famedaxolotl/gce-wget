@@ -21,7 +21,7 @@ Use any of the following methods.
 - Move the binary `gce-wget` to `/usr/bin` with
 
 ```bash
-sudo mv /Downloads/gce-wget /usr/bin
+sudo mv Downloads/gce-wget /usr/bin
 ```
 
 ### 2. Using Cargo
@@ -60,7 +60,7 @@ The basic command  structure (no options) is:
 gce-wget [SUBJECT_CODE] [YEARS]
 ```
 
-For example, `gce-wget 0620 2021,2022` will download all papers of IGCSE Chemistry from 2021 and IGCSE Chemistry 2022
+For example, `gce-wget 0620 2021,2022` will download all papers of IGCSE Chemistry from 2021 and 2022
 
 To selectively download papers, use the `-t` (`--types`) and `-c` (`--codes`) options, which allow you to enter comma-seperated lists of paper types and codes.
 
@@ -80,6 +80,6 @@ gce-wget 5070 -o -t ms,qp -c 11,12 2021
 
 This downloads all Paper 11 and Paper 12 question question paper and marking schemes from O Levels Chemistry 2021.
 
-Use the `-i` (`--igcse`) and `-a`(`-a-level`) options if, for example, the programs seems to searching the wrong qualification.
+Use the `-i` (`--igcse`) and `-a`(`--a-level`) options if, for example, the programs seems to searching the wrong qualification and is unable to find the subject, even though the correct code was entered.
 
 To understand the paper naming system, [see this.](https://papers.gceguide.net/assets/images/res_guide.svg).
