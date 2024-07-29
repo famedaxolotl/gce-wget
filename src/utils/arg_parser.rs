@@ -18,7 +18,7 @@ impl Config{
         pub fn new() -> Result<Config, &'static str>{
 
             let matches = command!()
-            .about("Wget CLI tool to retrieve papers from papers.gceguide.net")
+            .about("Wget CLI tool to retrieve papers from papers.gceguide.cc")
             .version("1.0.2")
             .arg(
                 Arg::new("subject_code")

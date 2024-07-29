@@ -5,37 +5,38 @@ pub fn get_url(sub_code: &String, force_flag: &Qual) -> Result<String, &'static 
 
     let exam_type: String = match force_flag{
         // forced qualification logic
-        Qual::Alevel => String::from("A%20Levels"),
-        Qual::Igcse => String::from("Cambridge%20IGCSE"),
-        Qual::OLevel => String::from("O%20Levels"),
+        Qual::Alevel => String::from("a-levels"),
+        Qual::Igcse => String::from("cambridge-IGCSE"),
+        Qual::OLevel => String::from("o-levels"),
         Qual::None => {
             // unwrap call here sufficient because arg_parser ensures Some
             // automatic qualification logic (no o-level)
             if sub_code.get(0..1).unwrap() == "0"{
-                String::from("Cambridge%20IGCSE")
+                String::from("cambridge-IGCSE")
             }else{
-                String::from("A%20Levels")
+                String::from("a-levels")
             }
         }
     };
 
-    let url_name_string = fetch_name(sub_code, &exam_type)?;    
+    println!("{}", exam_type);    
+    let url_name_string = fetch_name(sub_code, &exam_type)?;
 
-    Ok(format!("https://papers.gceguide.net/{}/{}/", exam_type, url_name_string))
+    Ok(format!("https://papers.gceguide.cc/{}/{}/", exam_type, url_name_string))
 }
 
 fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, &'static str>{
     let mut potential_names: Vec<&str> = Vec::new();
     
         // Fetch the HTML content
-        let response = match get(format!("https://papers.gceguide.net/{}", exam_type)){
+        let response = match get(format!("https://papers.gceguide.cc/{}", exam_type)){
             Ok(res) => res,
-            Err(_) => return Err("failed to get necessary info from papers.gceguide.net")
+            Err(_) => return Err("failed to get necessary info from papers.gceguide.cc")
         };
 
         let body = match response.text(){
             Ok(bod) => bod,
-            Err(_) => return Err("failed to read info from papers.gce-guide.net")
+            Err(_) => return Err("failed to read info from papers.gce-guide.cc")
         };
     
         // Split the content into individual lines
@@ -55,15 +56,17 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, &'static 
                 }
             }
         }
+        println!("{:?}", potential_names);
         // Takes the second of the output lines
         let sub_name_raw: &str = match potential_names.get(1){
             Some(sub_name) => sub_name,
-            None => return Err("the entered subject couldn't be found on papers.gceguide.net")
+            None => return Err("the entered subject couldn't be found on papers.gceguide.cc")
         };
         let sub_name_final: String = sub_name_raw
-        .replace(' ', "%20")
+        .replace(' ', "-")
         .replace('(', "%28")
-        .replace(')', "%29");
+        .replace(')', "%29")
+        .to_lowercase();
 
         // Removes residual HTML tag text
         Ok(sub_name_final[..sub_name_final.len() - 3].to_string())
