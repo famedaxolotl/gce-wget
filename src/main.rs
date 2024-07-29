@@ -11,7 +11,7 @@ fn main() {
     
     println!("Downloading the following subject: {}", config.sub_code);
     println!("Of the following types: {:?}", config.types);
-    println!("The following paper codes: {:?}", config.codes);
+    println!("Of the following paper codes: {:?}", config.codes);
     println!("From the following years: {:?}", config.years);
 
     let regex = parse_regex::parse(&config);
