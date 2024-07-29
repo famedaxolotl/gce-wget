@@ -2,11 +2,11 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/famedaxolotl) [![crates.io](https://img.shields.io/crates/v/gce-wget.svg)](https://crates.io/crates/gce-wget) [![Total Downloads](https://img.shields.io/crates/d/gce-wget.svg)](https://crates.io/crates/gce-wget) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## v1.0.2 What's new
+## v1.0.3 What's new
 
-### Force qualification flags: O Levels support added
+### Patched: gceguide moved to papers.gceguide.cc
 
-- ***You can now optionally force the program to search a particular qualification using the `-i`, `-a`, `-o` options, for IGCSE, A Levels, and O Levels respectively. Automatic search still remains if these options are not given, but only for IGCSE and A Levels. See details in Usage below.***
+- ***The program stopped working because of a domain and naming system change. It should be working all right now***
 
 gce-wget is a specialized tool to bulk download IGCSE and AS/A Levels (O Levels not yet supported) papers from papers.gceguide.net, skipping the need to write regexes and make link files. This tool requires wget to be pre-installed on the machine.
 
