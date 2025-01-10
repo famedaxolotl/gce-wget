@@ -12,7 +12,7 @@
 
 - ***The program stopped working because of a domain and naming system change. It should be working all right now***
 
-gce-wget is a specialized tool to bulk download IGCSE and AS/A Levels (O Levels not yet supported) papers from papers.gceguide.net, skipping the need to write regexes and make link files. This tool requires wget to be pre-installed on the machine.
+gce-wget is a specialized tool to bulk download IGCSE, O Levels and AS/A Levels papers from papers.gceguide.net, skipping the need to write regexes and make link files. This tool requires wget to be pre-installed on the machine.
 
 ## Installation
 
@@ -20,7 +20,7 @@ Use any of the following methods.
 
 ### 1. Downloading binary
 
-- You can download the binary from the [releases page.](https://github.com/famedaxolotl/gce-wget/releases)
+- You can download the latest binary from the [releases page.](https://github.com/famedaxolotl/gce-wget/releases)
 
 - Move the binary `gce-wget` to `/usr/bin` with
 
@@ -58,6 +58,9 @@ Now, run with `cargo run` or move the binary to `/usr/bin` with:
 
 Use `gce-wget --help` to see detailed help page.
 
+> [!NOTE]  
+> When running, gce-wget creates a *.temp-link-file* in `~/Downloads/`to store links. This will be deleted automatically after download is complete (unless the process is aborted) and can be ignored.
+
 The basic command  structure (no options) is:
 
 ```bash
@@ -74,16 +77,17 @@ For example:
 gce-wget 0620 -t ms,qp -c 21,41 2022,2023
 ```
 
-This downloads all Variant 1 extended MCQ and Theory papers of IGCSE Chemistry years 2022 and 2023, and their marking schemes.
+This downloads all Variant 1 extended MCQ and Theory papers of IGCSE Chemistry of years 2022 and 2023, and their respective marking schemes.
 
-To download O Levels papers, use the `-o` (`--o-level`) option like so:
+To download O Levels papers, use the `-o` (`--o-level`) option like so (this is necessary):
 
 ```bash
 gce-wget 5070 -o -t ms,qp -c 11,12 2021
 ```
 
-This downloads all Paper 11 and Paper 12 question question paper and marking schemes from O Levels Chemistry 2021.
+This downloads all Paper 11 and Paper 12 question papers and marking schemes from O Levels Chemistry 2021.
 
 Use the `-i` (`--igcse`) and `-a`(`--a-level`) options if, for example, the programs seems to searching the wrong qualification and is unable to find the subject, even though the correct code was entered.
 
-To understand the paper naming system, [see this.](https://papers.gceguide.net/assets/images/res_guide.svg).
+> [!TIP]
+> To understand the paper naming system, [see this.](https://papers.gceguide.net/assets/images/res_guide.svg).
