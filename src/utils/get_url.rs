@@ -56,7 +56,6 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, &'static 
                 }
             }
         }
-        println!("{:?}", potential_names);
         // Takes the second of the output lines
         let sub_name_raw: &str = match potential_names.get(1){
             Some(sub_name) => sub_name,
@@ -66,7 +65,9 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, &'static 
         .replace(' ', "-")
         .replace('(', "%28")
         .replace(')', "%29")
-        .to_lowercase();
+        .to_lowercase()
+        .replace("%28as-level-only%29", "%28AS-level-only%29")
+        .replace("%28a-level-only%29", "%28A-level-only%29");
 
         // Removes residual HTML tag text
         Ok(sub_name_final[..sub_name_final.len() - 3].to_string())

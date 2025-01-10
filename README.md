@@ -2,6 +2,10 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/famedaxolotl) [![crates.io](https://img.shields.io/crates/v/gce-wget.svg)](https://crates.io/crates/gce-wget) [![Total Downloads](https://img.shields.io/crates/d/gce-wget.svg)](https://crates.io/crates/gce-wget) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## v1.0.4 What's new
+
+### Patched: Not working when subject name has '(AS/A level only)' in it
+
 ## v1.0.3 What's new
 
 ### Patched: gceguide moved to papers.gceguide.cc
