@@ -2,17 +2,17 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-Profile-blue?logo=github)](https://github.com/famedaxolotl) [![crates.io](https://img.shields.io/crates/v/gce-wget.svg)](https://crates.io/crates/gce-wget) [![Total Downloads](https://img.shields.io/crates/d/gce-wget.svg)](https://crates.io/crates/gce-wget) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## v1.0.5 What's new
+
+### Patched: more paper types now supported
+
 ## v1.0.4 What's new
 
 ### Patched: Not working when subject name has '(AS/A level only)' in it
 
-## v1.0.3 What's new
-
-### Patched: gceguide moved to papers.gceguide.cc
-
-- ***The program stopped working because of a domain and naming system change. It should be working all right now***
-
 gce-wget is a specialized tool to bulk download IGCSE, O Levels and AS/A Levels papers from papers.gceguide.net, skipping the need to write regexes and make link files. This tool requires wget to be pre-installed on the machine.
+
+Note that this program and its creator have absolutely no affiliation with GCE Guide. This program simply makes using wget on the GCE Guide website easier.
 
 ## Installation
 
@@ -89,5 +89,12 @@ This downloads all Paper 11 and Paper 12 question papers and marking schemes fro
 
 Use the `-i` (`--igcse`) and `-a`(`--a-level`) options if, for example, the programs seems to searching the wrong qualification and is unable to find the subject, even though the correct code was entered.
 
+All downloaded files will be found in the papers.gceguide.cc folder in your Downloads.
+
 > [!TIP]
-> To understand the paper naming system, [see this.](https://papers.gceguide.net/assets/images/res_guide.svg).
+> To understand the paper naming system, [see this.](https://papers.gceguide.cc/assets/images/res_guide.svg).
+
+### Limitations
+
+- gce-wget cannot bulk download papers from mutiple different subjects; only one subject code must be passed each time.
+- gce-wget may not recognize certain valid paper types. Please report such instances. The paper types currently supported are `qp`, `ms`, `in`, `er`, `gt`, `tr`, `ci`, `qr`, `rp`, `sf` and `tn`.

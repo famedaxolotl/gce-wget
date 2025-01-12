@@ -8,6 +8,7 @@ pub fn parse(config: &Config) -> String{
     let mut types_str: String = String::new();
     let mut codes_str: String = String::new();
 
+    // adds "|" after every item for the regex OR operator
     for sub_type in types.clone(){
         types_str.push_str(&sub_type);
         types_str += "|";
@@ -19,9 +20,12 @@ pub fn parse(config: &Config) -> String{
         codes_str += "|";
         
     }
+
+    // removes trailing "|"
     types_str.pop();
     codes_str.pop();
 
+    // constructs regex
     if codes.is_empty() && types.is_empty(){
         format!("{}_.{{3}}", sub_code)
     }else if codes.is_empty(){

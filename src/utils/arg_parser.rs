@@ -89,7 +89,7 @@ impl Config{
         
             if let Some(values) = matches.get_many::<String>("paper-types") {
                 for value in values{
-                    let types_list = ["qp", "ms", "in", "er", "gt", "tr", "ci"];
+                    let types_list = ["qp", "ms", "in", "er", "gt", "tr", "ci", "qr", "rp", "sf", "tn"];
         
                     if !types_list.contains(&value.as_str()){
                         return Err("You have passed an invalid paper type");

@@ -9,10 +9,10 @@ fn main() {
         process::exit(1);
     });
     
-    println!("Downloading the following subject: {}", config.sub_code);
-    println!("Of the following types: {:?}", config.types);
-    println!("Of the following paper codes: {:?}", config.codes);
-    println!("From the following years: {:?}", config.years);
+    println!("Querying subject code: {}", config.sub_code);
+    println!("Paper type(s): {:?}", config.types);
+    println!("Paper code(s): {:?}", config.codes);
+    println!("Of year(s): {:?}", config.years);
 
     let regex = parse_regex::parse(&config);
 

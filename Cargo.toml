@@ -1,9 +1,9 @@
 [package]
 name = "gce-wget"
-version = "1.0.4"
+version = "1.0.5"
 authors = ["Axolotl rishavghosh2007@gmail.com"]
 edition = "2021"
-description = "CLI tool using wget to get CAIE Past Papers; written in Rust"
+description = "A CLI tool which uses wget to bulk download CAIE Past Papers; written in Rust"
 license = "MIT"
 readme="README.md"
 repository = "https://github.com/famedaxolotl/gce-wget"

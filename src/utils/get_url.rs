@@ -19,7 +19,7 @@ pub fn get_url(sub_code: &String, force_flag: &Qual) -> Result<String, &'static 
         }
     };
 
-    println!("{}", exam_type);    
+    println!("Searching qualification: {}", exam_type.to_uppercase());    
     let url_name_string = fetch_name(sub_code, &exam_type)?;
 
     Ok(format!("https://papers.gceguide.cc/{}/{}/", exam_type, url_name_string))
@@ -55,20 +55,27 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, &'static 
                     }
                 }
             }
-        }
+        };
+
         // Takes the second of the output lines
         let sub_name_raw: &str = match potential_names.get(1){
             Some(sub_name) => sub_name,
             None => return Err("the entered subject couldn't be found on papers.gceguide.cc")
         };
+
+        // This prints the subject name before it is adjusted to url form
+        println!("Subject found: {}", sub_name_raw[..sub_name_raw.len() - 3].to_string());
+
         let sub_name_final: String = sub_name_raw
         .replace(' ', "-")
         .replace('(', "%28")
         .replace(')', "%29")
         .to_lowercase()
+        // these replace methods ensures "AS" and "A" remain capitalised when
+        // subject names contain "(AS/A level only)"
         .replace("%28as-level-only%29", "%28AS-level-only%29")
         .replace("%28a-level-only%29", "%28A-level-only%29");
 
-        // Removes residual HTML tag text
+        // Removes residual HTML tag text and returns name in url-form
         Ok(sub_name_final[..sub_name_final.len() - 3].to_string())
 }
