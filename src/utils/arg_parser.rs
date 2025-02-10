@@ -19,7 +19,7 @@ impl Config{
 
             let matches = command!()
             .about("Wget CLI tool to retrieve papers from papers.gceguide.cc")
-            .version("1.0.3")
+            .version("1.0.5")
             .arg(
                 Arg::new("subject_code")
                 .help("Accepts ONE subject code, accepts IGCSE and AS/A Levels")
