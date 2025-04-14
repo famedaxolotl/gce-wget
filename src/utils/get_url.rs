@@ -54,7 +54,7 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, Box<dyn s
         };
 
         // Takes the second of the output lines
-        let sub_name_raw: &str = potential_names.get(1).ok_or_else(|| format!("Subject not found"))?;
+        let sub_name_raw: &str = potential_names.get(1).ok_or_else(|| format!("Subject not found. Please check again or use qualification options (-i, -a or -o)."))?;
 
         // This prints the subject name before it is adjusted to url form
         println!("Subject found: {}", sub_name_raw[..sub_name_raw.len() - 3].to_string());

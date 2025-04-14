@@ -5,7 +5,7 @@ use std::io;
 
 fn main() {
     let config = Config::new().unwrap_or_else(|error| {
-        eprintln!("Invalid argument provided: {}", error);
+        eprintln!("Invalid command/option(s): {}", error);
         process::exit(1);
     });
     
@@ -43,7 +43,7 @@ fn runner(regex: &str, link_file: &String)-> io::Result<()>{
     // unwrap call, followed by tuple index access is verified safe
     let usr_downloads_dir = link_file.rsplit_once('/').unwrap().0;
 
-    println!("Please wait, wget is running...");
+    println!("Please wait, wget is running.\nThis may take a while, sit tight...");
 
     let output = Command::new("wget")
         .arg("-r")

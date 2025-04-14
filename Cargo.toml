@@ -1,6 +1,6 @@
 [package]
 name = "gce-wget"
-version = "1.0.5"
+version = "1.0.6"
 authors = ["Axolotl rishavghosh2007@gmail.com"]
 edition = "2021"
 description = "A CLI tool which uses wget to bulk download CAIE Past Papers; written in Rust"

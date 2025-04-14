@@ -33,9 +33,9 @@ impl fmt::Display for ConfigError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let msg = match self {
             ConfigError::InvalidSubCode => "Enter valid 4 digit subject code",
-            ConfigError::InvalidPaperType => "You have passed an invalid paper type",
-            ConfigError::InvalidPaperCode => "Enter valid 2-digit paper codes",
-            ConfigError::InvalidYears => "Enter valid 4-digit years",
+            ConfigError::InvalidPaperType => "Enter valid paper type(s)",
+            ConfigError::InvalidPaperCode => "Enter valid 2-digit paper codes(s)",
+            ConfigError::InvalidYears => "Enter valid 4-digit year(s)",
         };
 
         write!(f, "{}", msg)
@@ -49,22 +49,22 @@ impl Config{
 
             let matches = command!()
             .about("Wget CLI tool to retrieve papers from papers.gceguide.cc")
-            .version("1.0.5")
+            .version("1.0.6")
             .arg(
                 Arg::new("subject_code")
-                .help("Accepts ONE subject code, accepts IGCSE and AS/A Levels")
+                .help("Accepts ONE subject code of IGCSE, AS/A Levels or O-Levels")
                 .required(true)
             )
             .arg(
                 Arg::new("paper-types")
-                .help("Comma delimited list of paper types (e.g. --paper-types ms,qp,in)")
+                .help("Comma delimited list of paper types (e.g. -t ms,qp,in)")
                 .short('t')
                 .long("types")
                 .value_delimiter(',')
             )
             .arg(
                 Arg::new("paper-codes")
-                .help("Comma delimited list of paper codes, incuding the variant (e.g. --paper-codes 11,21,31)")
+                .help("Comma delimited list of paper codes, incuding the variant (e.g. -c 11,21,31)")
                 .short('c')
                 .long("codes")
                 .value_delimiter(',')
@@ -91,7 +91,7 @@ impl Config{
             )
             .arg(
                 Arg::new("o-level")
-                .help("Force O Levels search")
+                .help("Force O Levels search (imperative for O-Levels)")
                 .short('o')
                 .long("o-level")
                 .action(ArgAction::SetTrue)
