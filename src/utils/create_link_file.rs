@@ -1,10 +1,8 @@
-use std::fs::File;
-use std::io;
-use std::env;
-use std::io::Write;
+use std::{fs::File, env, io::Write};
 
-pub fn create_link_file(url: &String, years: &[String]) -> Result<String, io::Error> {
-    let link_file_path = format!("{}/Downloads/.temp-link-file", env::var("HOME").expect("Home env var not found"));
+pub fn create_link_file(url: &String, years: &[String]) -> Result<String, Box<dyn std::error::Error>> {
+    let link_file_path = format!("{}/Downloads/.temp-link-file", env::var("HOME")
+        .map_err(|e| format!("Error: {}", e))?);
 
     let mut link_file = File::create(&link_file_path)?;
 

@@ -5,7 +5,7 @@ use std::io;
 
 fn main() {
     let config = Config::new().unwrap_or_else(|error| {
-        eprintln!("Invalid arguement provided: {}", error);
+        eprintln!("Invalid argument provided: {}", error);
         process::exit(1);
     });
     
@@ -34,12 +34,8 @@ fn main() {
 
     println!("Please check your downloads folder!");
 
-    match std::fs::remove_file(&link_file){
-        Ok(_) => (),
-        Err(_) => {
-            eprintln!("Error: failed to delete link file, maybe do it manually")
-        }
-    };
+    let _ = std::fs::remove_file(&link_file)
+        .map_err(|err| format!("Error removing link file: {}. Maybe do it manually...", err));
 }
 
 fn runner(regex: &str, link_file: &String)-> io::Result<()>{

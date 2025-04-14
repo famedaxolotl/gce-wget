@@ -1,3 +1,4 @@
+use std::fmt;
 use clap::{command, Arg, ArgAction, ArgGroup};
 
 pub struct Config{
@@ -14,8 +15,37 @@ pub enum Qual{
     None
 }
 
+
+// This is a custom error type for custom errors
+// during argument parsing
+#[derive(Debug)]
+pub enum ConfigError {
+    InvalidSubCode,
+    InvalidPaperType,
+    InvalidPaperCode,
+    InvalidYears
+}
+
+//implementation for Display and Error traits
+// Config::new() can hence return ConfigError for errors
+// instead of &'static str
+impl fmt::Display for ConfigError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let msg = match self {
+            ConfigError::InvalidSubCode => "Enter valid 4 digit subject code",
+            ConfigError::InvalidPaperType => "You have passed an invalid paper type",
+            ConfigError::InvalidPaperCode => "Enter valid 2-digit paper codes",
+            ConfigError::InvalidYears => "Enter valid 4-digit years",
+        };
+
+        write!(f, "{}", msg)
+    }
+}
+
+impl std::error::Error for ConfigError {}
+
 impl Config{
-        pub fn new() -> Result<Config, &'static str>{
+        pub fn new() -> Result<Config, ConfigError>{
 
             let matches = command!()
             .about("Wget CLI tool to retrieve papers from papers.gceguide.cc")
@@ -70,19 +100,19 @@ impl Config{
             .group(ArgGroup::new("force-qualification")
             .args(["igcse", "o-level", "a-level"])
             .required(false)).get_matches();
-        
-            // Getting matches and inserting them into vecs
-        
+
+            // empty String to store the subject code in
             let mut sub_code: String = String::new();
         
             if let Some(code) = matches.get_one::<String>("subject_code"){
                 if code.len() == 4 && code.parse::<i32>().is_ok(){
                     sub_code.push_str(code);
                 }else{
-                    return Err("Enter valid 4 digit subject code")
+                    return Err(ConfigError::InvalidSubCode)
                 }
             }
-        
+
+            // creating empty vecs to store paper types, paper codes, and paper years
             let mut codes_vec: Vec<String> = Vec::new();
             let mut years_vec: Vec<String> = Vec::new();
             let mut types_vec: Vec<String> = Vec::new();
@@ -92,7 +122,7 @@ impl Config{
                     let types_list = ["qp", "ms", "in", "er", "gt", "tr", "ci", "qr", "rp", "sf", "tn"];
         
                     if !types_list.contains(&value.as_str()){
-                        return Err("You have passed an invalid paper type");
+                        return Err(ConfigError::InvalidPaperType);
                     }else{
                         types_vec.push(value.clone());
                     }
@@ -106,7 +136,7 @@ impl Config{
                     if (value.len() == 2 || value.len() == 1) && value.parse::<i32>().is_ok(){
                         codes_vec.push(value.clone())
                     }else{
-                        return Err("Enter valid 2-digit paper codes")
+                        return Err(ConfigError::InvalidPaperCode)
                     }
                 }
             }
@@ -117,7 +147,7 @@ impl Config{
                     if value.len() == 4 && value.parse::<i32>().is_ok(){
                         years_vec.push(value.clone())
                     }else{
-                        return Err("Enter valid 4-digit years")
+                        return Err(ConfigError::InvalidYears)
                     }
                 }
             }

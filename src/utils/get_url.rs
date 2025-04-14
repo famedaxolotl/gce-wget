@@ -1,7 +1,7 @@
 use reqwest::blocking::get;
 use super::arg_parser::Qual;
 
-pub fn get_url(sub_code: &String, force_flag: &Qual) -> Result<String, &'static str>{
+pub fn get_url(sub_code: &String, force_flag: &Qual) -> Result<String, Box<dyn std::error::Error>>{
 
     let exam_type: String = match force_flag{
         // forced qualification logic
@@ -25,19 +25,15 @@ pub fn get_url(sub_code: &String, force_flag: &Qual) -> Result<String, &'static 
     Ok(format!("https://papers.gceguide.cc/{}/{}/", exam_type, url_name_string))
 }
 
-fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, &'static str>{
+fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, Box<dyn std::error::Error>>{
     let mut potential_names: Vec<&str> = Vec::new();
     
         // Fetch the HTML content
-        let response = match get(format!("https://papers.gceguide.cc/{}", exam_type)){
-            Ok(res) => res,
-            Err(_) => return Err("failed to get necessary info from papers.gceguide.cc")
-        };
+        let response = get(format!("https://papers.gceguide.cc/{}", exam_type))
+            .map_err(|err| format!("Failed to fetch info from papers.gceguide.cc: {}", err))?;
 
-        let body = match response.text(){
-            Ok(bod) => bod,
-            Err(_) => return Err("failed to read info from papers.gce-guide.cc")
-        };
+        let body = response.text()
+            .map_err(|err| format!("Failed to read info from papers.gceguide.cc: {}", err))?;
     
         // Split the content into individual lines
         let lines: Vec<&str> = body.lines().collect();
@@ -58,10 +54,7 @@ fn fetch_name(sub_code: &String, exam_type: &String) -> Result<String, &'static 
         };
 
         // Takes the second of the output lines
-        let sub_name_raw: &str = match potential_names.get(1){
-            Some(sub_name) => sub_name,
-            None => return Err("the entered subject couldn't be found on papers.gceguide.cc")
-        };
+        let sub_name_raw: &str = potential_names.get(1).ok_or_else(|| format!("Subject not found"))?;
 
         // This prints the subject name before it is adjusted to url form
         println!("Subject found: {}", sub_name_raw[..sub_name_raw.len() - 3].to_string());

@@ -18,7 +18,7 @@ Note that this program and its creator have absolutely no affiliation with GCE G
 
 Use any of the following methods.
 
-### 1. Downloading binary
+### 1. Downloading binary (only amd64 linux)
 
 - You can download the latest binary from the [releases page.](https://github.com/famedaxolotl/gce-wget/releases)
 
